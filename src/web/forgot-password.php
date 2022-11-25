@@ -1,10 +1,16 @@
+<?php
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mazer Admin Dashboard</title>
+    <title>Login - Smanager</title>
     <link rel="stylesheet" href="assets/css/main/app.css">
     <link rel="stylesheet" href="assets/css/pages/auth.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
@@ -33,7 +39,7 @@
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'>Remember your account? <a href="auth-login.html" class="font-bold">Log in</a>.
+                <p class='text-gray-600'>Remember your account? <a href="index.html " class="font-bold">Log in</a>.
                 </p>
             </div>
         </div>
