@@ -1,0 +1,11 @@
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\bin\Debug\client-smanager.exe.config
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\bin\Debug\client-smanager.exe
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\bin\Debug\client-smanager.pdb
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.csproj.AssemblyReference.cache
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.csproj.SuggestedBindingRedirects.cache
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client_smanager.Form1.resources
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client_smanager.Properties.Resources.resources
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.csproj.GenerateResource.cache
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.exe
+C:\xampp\htdocs\smanager\src\client\client-smanager\client-smanager\obj\Debug\client-smanager.pdb
