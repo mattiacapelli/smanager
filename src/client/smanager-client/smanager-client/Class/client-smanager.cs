@@ -72,7 +72,7 @@ namespace smanager_client
                     // Establish the remote endpoint for the socket.  
                     // This example uses port 11000 on the local computer.  
                     //IPAddress ipAddress = System.Net.IPAddress.Parse("192.168.197.1");
-                    IPAddress ipAddress = System.Net.IPAddress.Parse(GetLocalIPAddress());
+                    IPAddress ipAddress = System.Net.IPAddress.Parse(server_ip);
                     IPEndPoint remoteEP = new IPEndPoint(ipAddress, server_port);
 
                     // Create a TCP/IP  socket.  

@@ -15,6 +15,9 @@ namespace smanager_client
 {
     public partial class Form1 : Form
     {
+        Thread logthread = new Thread(new ThreadStart(fnull));
+        
+        public static void fnull() { }
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace smanager_client
             if (txt_authkey.Text != "" && txt_ipaddress.Text != "")
             {
                 client_smanager ssmanager = new client_smanager(txt_ipaddress.Text, txt_authkey.Text);
-                Thread logthread = new Thread(new ThreadStart(ssmanager.sendPacket));
+                logthread = new Thread(new ThreadStart(ssmanager.sendPacket));
                 logthread.Start();
             }
             else
@@ -51,6 +54,29 @@ namespace smanager_client
         {
 
             start();
+        }
+
+        private void btn_stop_Click(object sender, EventArgs e)
+        {
+            if (logthread.IsAlive)
+            {
+                logthread.Abort();
+            }
+            else
+            {
+                MessageBox.Show("Avvia una connessione prima di Arrestarla");
+            }
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            logthread.Abort();
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.ControlBox = false;
         }
     }
 }
