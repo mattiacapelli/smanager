@@ -17,6 +17,9 @@ namespace client_smanager
     public partial class Form1 : Form
     {
         string keypath = "./auth.key";
+        string auth_key = "";
+        string clientid = "";
+        socket_smanager ssmanager = new socket_smanager();
 
         public Form1()
         {
@@ -36,10 +39,14 @@ namespace client_smanager
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
-        public bool authenticate(string key) 
+        public bool StartConnection()
         {
-            
-            return true;
+            return false;
+        }
+
+        public void authenticate(/*string key*/) 
+        {
+            Thread authThread = new Thread(new ThreadStart(ssmanager.sendAuth(auth_key, clientid, GetLocalIPAddress()));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -50,6 +57,16 @@ namespace client_smanager
                 btn_action.Text = "Authenticate";
                 lbl_auth.Text = "Not Authenticated";
                 lbl_auth.ForeColor = Color.Red;
+                lbl_connection.Text = "Waiting for Authentication";
+                lbl_connection.ForeColor = Color.OrangeRed;
+            }
+            else
+            {
+                btn_action.Text = "Start";
+                lbl_auth.Text = "Authenticated";
+                lbl_auth.ForeColor= Color.Green;
+                lbl_connection.Text = "No connection";
+                lbl_connection.ForeColor = Color.OrangeRed;
             }
         }
 
@@ -80,6 +97,17 @@ namespace client_smanager
                     break;
 
                 case "Start":
+
+                    if (StartConnection())
+                    {
+                        lbl_connection.Text = "Connection Established";
+                        lbl_connection.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        lbl_connection.Text = "Error during the connection";
+                        lbl_connection.ForeColor = Color.Red;
+                    }
 
                     break;
 
