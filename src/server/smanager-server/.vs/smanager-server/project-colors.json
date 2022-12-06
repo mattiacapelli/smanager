@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "cfa86d06-4b80-4e46-86e2-cb0a2b8db872": {
+      "ProjectGuid": "cfa86d06-4b80-4e46-86e2-cb0a2b8db872",
+      "DisplayName": "smanager-server",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

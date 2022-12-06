@@ -114,7 +114,14 @@ namespace smanager_client
                 computer.Close();
             }
             catch (Exception ex)
-            { Console.WriteLine("Error"); Console.WriteLine(ex.Message); }
+            {
+                if (ex is FormatException || ex is OverflowException)
+                {
+                    Console.WriteLine("");
+                }
+
+                throw;
+            }
 
             //Get datetime now
             DateTime now = DateTime.Now;

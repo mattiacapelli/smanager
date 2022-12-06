@@ -68,12 +68,16 @@ namespace client_smanager
                     Console.WriteLine("Unexpected exception : {0}", e.ToString());
                 }
 
-            } 
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
             }
-            return true;
+            catch (Exception ex)
+            {
+                if (ex is FormatException || ex is OverflowException)
+                {   
+                    
+                }
+
+                throw;
+            }
         }
     }
 }

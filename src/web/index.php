@@ -39,7 +39,16 @@ if(isset($_REQUEST['btn_login']))	//button name is "btn_login"
 					{
 						$_SESSION["user_login"] = $row["user_id"];	//session name is "user_login"
 						$loginMsg = "Successfully Login...";		//user login success message
-						header("refresh:1; ./dashboard");			//refresh 2 second after redirect to "./dashboard" page
+						header("refresh:1; ./dashboard");			//refresh 2 second after redirect to "./dashboard" 
+                        
+                        switch($row["role"]){
+                            case 'admin':
+                                header("location: ./dashboard/root");
+                                break;
+                            case 'user':
+                                header("location: ./dashboard/guest");
+                                break;
+                        }
 					}
 					else
 					{

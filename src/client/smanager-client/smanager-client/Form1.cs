@@ -30,7 +30,7 @@ namespace smanager_client
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    return ip.ToString();
+                    return "192.168.178.101";
                 }
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
@@ -40,7 +40,7 @@ namespace smanager_client
         {
             if (txt_authkey.Text != "" && txt_ipaddress.Text != "")
             {
-                client_smanager ssmanager = new client_smanager(txt_ipaddress.Text, txt_authkey.Text);
+                client_smanager ssmanager = new client_smanager(txt_ipaddress.Text, GetLocalIPAddress(), txt_authkey.Text);
                 logthread = new Thread(new ThreadStart(ssmanager.sendPacket));
                 logthread.Start();
             }

@@ -1,12 +1,22 @@
 <?php
+    //Generate random string of 32 characters
+    function generateukey($lenght) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $lenght; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
     if (isset($_POST['submit'])) {
         require_once './assets/php/connection.php';
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password2 = $_POST['password2'];
-        
-        echo $_POST;
 
         $username = strip_tags($username);
         $email = strip_tags($email);
@@ -15,9 +25,9 @@
         
         if($password == $password2)
         {
-            $sql = 'INSERT INTO users (name, surname, email, class, username, password) VALUES (:name, :surname, :email, :class, :username, :password)';
+            $sql = 'INSERT INTO users (username, email, password, role, ukey) VALUES (:username, :email, :password, :role, :ukey)';
             $stmt = $db->prepare($sql);
-            $stmt->execute(['name' => $name, 'surname' => $surname, 'email' => $email, 'class' => $class, 'username' => $username, 'password' => $pass]);
+            $stmt->execute(['username' => $username, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT), 'role' => 'guest', 'ukey' => generateukey(32)]);
 
             if ($stmt->rowCount() > 0) {
                 $loginMsg[] = "You have been registered!";
@@ -38,7 +48,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Smanager</title>
+    <title>Sign Up - Smanager</title>
     <link rel="stylesheet" href="assets/css/main/app.css">
     <link rel="stylesheet" href="assets/css/pages/auth.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
@@ -105,7 +115,7 @@
                     }
                 ?>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+                <input class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit" name="submit" value="Sign Up">
             </form>
             <div class="text-center mt-5 text-lg fs-4">
                 <p class='text-gray-600'>Already have an account? <a href="index.php" class="font-bold">Log

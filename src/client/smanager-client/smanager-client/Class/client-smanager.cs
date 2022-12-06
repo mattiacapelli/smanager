@@ -14,25 +14,13 @@ namespace smanager_client
     class client_smanager
     {
         string server_ip = "";
-        string client_ip = GetLocalIPAddress();
+        string client_ip = "";
         string auth_key = "";
         string packet_type = "auth";
         int server_port = 5842;
-        
-        public static string GetLocalIPAddress()
+        public client_smanager(string server_ip, string client_ip, string auth_key)
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-        public client_smanager(string server_ip, string auth_key)
-        {
+            this.client_ip = client_ip;
             this.server_ip = server_ip;
             this.auth_key = auth_key;
         }
@@ -100,6 +88,7 @@ namespace smanager_client
                         {
                             case "auth":
                                 packet = "{\"type\": \"" + "auth" + "\",\"authkey\": \"" + this.auth_key + "\",\"ip_address\": \"" + client_ip + "\"}";
+                                Console.WriteLine(packet);
                                 msg = Encoding.ASCII.GetBytes(packet + "<EOF>");
 
                                 // Send the data through the socket.  
