@@ -5,7 +5,14 @@ session_start();
 
 if(isset($_SESSION["user_login"]))	//check condition user login not direct back to index.php page
 {
-	header("location: ./dashboard");
+    switch($_SESSION["user_role"]){
+        case 'admin':
+            header("refresh:1; ./dashboard/root");
+            break;
+        case 'guest':
+            header("refresh:1; ./dashboard/guest");
+            break;
+    }
 }
 
 if(isset($_REQUEST['btn_login']))	//button name is "btn_login"
@@ -37,16 +44,16 @@ if(isset($_REQUEST['btn_login']))	//button name is "btn_login"
 				{
 					if(password_verify($password, $row["password"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
 					{
-						$_SESSION["user_login"] = $row["user_id"];	//session name is "user_login"
-						$loginMsg = "Successfully Login...";		//user login success message
-						header("refresh:1; ./dashboard");			//refresh 2 second after redirect to "./dashboard" 
+						$_SESSION["user_login"] = $row["id"];
+                        $_SESSION["user_role"] = $row["role"];	//session name is "user_login"
+						$loginMsg = "Successfully Login...";		//user login success message 
                         
                         switch($row["role"]){
                             case 'admin':
-                                header("location: ./dashboard/root");
+                                header("refresh:1; ./dashboard/root");
                                 break;
-                            case 'user':
-                                header("location: ./dashboard/guest");
+                            case 'guest':
+                                header("refresh:1; ./dashboard/guest");
                                 break;
                         }
 					}
