@@ -47,6 +47,8 @@ namespace smanager_client
             return false;
         }
 
+
+
         public void sendPacket()
         {
 

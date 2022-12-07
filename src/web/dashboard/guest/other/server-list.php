@@ -14,7 +14,7 @@ $id = $_SESSION['user_login'];
 $select_stmt = $db->prepare("SELECT * FROM users WHERE id=:uid");
 $select_stmt->execute(array(":uid"=>$id));
 
-$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+$duser=$select_stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -100,8 +100,8 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable</h3>
-                <p class="text-subtitle text-muted">A sortable, searchable, paginated table without dependencies thanks to simple-datatables</p>
+                <h3>Server List</h3>
+                <p class="text-subtitle text-muted">View all your server</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -126,6 +126,7 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
                             <th>IP Address</th>
                             <th>AuthKey</th>
                             <th>User Key</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,11 +138,13 @@ $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
                         $result = $stmt->fetchAll();
                         foreach($result as $row)
                         {
+                            if($row['user_key'] = $duser['ukey'])
                             echo '<tr>';
                             echo '<td>' . $row['server_name'] . '</td>';
                             echo '<td>' . $row['ip_address'] . '</td>';
                             echo '<td>' . $row['authkey'] . '</td>';
                             echo '<td>' . $row['user_key'] . '</td>';
+                            echo '<td><a href="./server-home.php?id=' . $row['id'] . '" class="btn btn-primary">View</a></td>';
                             echo '</tr>';
                         }
                     ?>

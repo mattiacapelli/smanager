@@ -507,7 +507,7 @@ var radialBarOptions = {
   labels: ["Apples", "Oranges", "Bananas", "Berries"],
 };
 var bar = new ApexCharts(document.querySelector("#bar"), barOptions);
-var line = new ApexCharts(document.querySelector("#line"), lineOptions);
+var line = new ApexCharts(document.querySelector(""), );
 var candle = new ApexCharts(document.querySelector("#candle"), candleOptions);
 var radialGradient = new ApexCharts(document.querySelector("#radialGradient"), radialGradientOptions);
 var area = new ApexCharts(document.querySelector("#area"), areaOptions);

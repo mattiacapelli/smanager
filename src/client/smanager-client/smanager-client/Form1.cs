@@ -23,24 +23,27 @@ namespace smanager_client
             InitializeComponent();
         }
 
-        public static string GetLocalIPAddress()
+        public void getInterfaces()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            if (host != null)
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                foreach (var ip in host.AddressList)
                 {
-                    return "192.168.178.101";
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        comboip.Items.Add(ip.ToString());
                 }
+                comboip.Items.Add("127.0.0.1");
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
+            else
+                comboip.Items.Add("127.0.0.1");
         }
 
         public void start()
         {
             if (txt_authkey.Text != "" && txt_ipaddress.Text != "")
             {
-                client_smanager ssmanager = new client_smanager(txt_ipaddress.Text, GetLocalIPAddress(), txt_authkey.Text);
+                client_smanager ssmanager = new client_smanager(txt_ipaddress.Text, comboip.Text, txt_authkey.Text);
                 logthread = new Thread(new ThreadStart(ssmanager.sendPacket));
                 logthread.Start();
             }
@@ -77,6 +80,7 @@ namespace smanager_client
         private void Form1_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            getInterfaces();
         }
     }
 }

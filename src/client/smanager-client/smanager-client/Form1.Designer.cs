@@ -36,13 +36,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btn_stop = new System.Windows.Forms.Button();
             this.btn_close = new System.Windows.Forms.Button();
+            this.comboip = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_start
             // 
-            this.btn_start.Location = new System.Drawing.Point(12, 177);
+            this.btn_start.Location = new System.Drawing.Point(12, 195);
             this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(243, 68);
+            this.btn_start.Size = new System.Drawing.Size(243, 50);
             this.btn_start.TabIndex = 0;
             this.btn_start.Text = "Start";
             this.btn_start.UseVisualStyleBackColor = true;
@@ -50,14 +52,14 @@
             // 
             // txt_ipaddress
             // 
-            this.txt_ipaddress.Location = new System.Drawing.Point(12, 76);
+            this.txt_ipaddress.Location = new System.Drawing.Point(12, 61);
             this.txt_ipaddress.Name = "txt_ipaddress";
             this.txt_ipaddress.Size = new System.Drawing.Size(243, 20);
             this.txt_ipaddress.TabIndex = 1;
             // 
             // txt_authkey
             // 
-            this.txt_authkey.Location = new System.Drawing.Point(12, 122);
+            this.txt_authkey.Location = new System.Drawing.Point(12, 107);
             this.txt_authkey.Name = "txt_authkey";
             this.txt_authkey.Size = new System.Drawing.Size(243, 20);
             this.txt_authkey.TabIndex = 2;
@@ -65,7 +67,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 106);
+            this.label1.Location = new System.Drawing.Point(105, 91);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 3;
@@ -74,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(105, 60);
+            this.label2.Location = new System.Drawing.Point(105, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 4;
@@ -102,11 +104,30 @@
             this.btn_close.UseVisualStyleBackColor = false;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
+            // comboip
+            // 
+            this.comboip.FormattingEnabled = true;
+            this.comboip.Location = new System.Drawing.Point(12, 153);
+            this.comboip.Name = "comboip";
+            this.comboip.Size = new System.Drawing.Size(243, 21);
+            this.comboip.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(82, 137);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Ethernet Interface";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(267, 291);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboip);
             this.Controls.Add(this.btn_close);
             this.Controls.Add(this.btn_stop);
             this.Controls.Add(this.label2);
@@ -132,6 +153,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.Button btn_close;
+        private System.Windows.Forms.ComboBox comboip;
+        private System.Windows.Forms.Label label3;
     }
 }
 
