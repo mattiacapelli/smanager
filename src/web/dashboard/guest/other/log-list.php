@@ -4,48 +4,13 @@ require_once '../../../assets/php/connection.php';
 
 session_start();
 
-if(!isset($_SESSION['user_login']))
-{
-	header("location: ./index.php");
-}
+$server_id = $_GET['id'];
 
-$id = $_SESSION['user_login'];
+$select_stmt = $db->prepare("SELECT * FROM servers WHERE id=:uid");
+$select_stmt->execute(array(":uid"=>$server_id));
 
-$select_stmt = $db->prepare("SELECT * FROM users WHERE id=:uid");
-$select_stmt->execute(array(":uid"=>$id));
+$duser=$select_stmt->fetch(PDO::FETCH_ASSOC);
 
-$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
-
-function generateukey($lenght) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $lenght; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
-
-
-
-if (isset($_POST['submit'])) {
-    $ipaddress = $_POST['ipaddress'];
-    $sname = $_POST['sname'];
-
-    $ipaddress = strip_tags($ipaddress);
-    $sname = strip_tags($sname);
-
-    $sql = 'INSERT INTO servers (authkey, ip_address, server_name, user_key) VALUES (:authkey, :ip_address, :server_name, :user_key)';
-        $stmt = $db->prepare($sql);
-        $stmt->execute(['authkey' => generateukey(8), 'ip_address' => $ipaddress, 'server_name' => $sname, 'user_key' => $row['ukey']]);
-
-        if ($stmt->rowCount() > 0) {
-            $loginMsg[] = "You have been registered!";
-        } else {
-            $errorMsg[] = "Error, please try again later.";
-        }
-}
 ?>
 
 <!DOCTYPE html>
@@ -54,13 +19,16 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Server - Smanager</title>
+    <title>Server List - Smanager</title>
     
     <link rel="stylesheet" href="../../../assets/css/main/app.css">
     <link rel="stylesheet" href="../../../assets/css/main/app-dark.css">
     <link rel="shortcut icon" href="../../../assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="../../../assets/images/logo/favicon.png" type="image/png">
     
+<link rel="stylesheet" href="../../../assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="../../../assets/css/pages/simple-datatables.css">
+
 </head>
 
 <body>
@@ -93,7 +61,7 @@ if (isset($_POST['submit'])) {
                 class="sidebar-item active ">
                 <a href="" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
-                    <span><a href="../">Dashboard</a></span>
+                    <span>Dashboard</span>
                 </a>
             </li>
             
@@ -127,60 +95,69 @@ if (isset($_POST['submit'])) {
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Add a Server</h3>
-                <p class="text-subtitle text-muted">Complete the Form</p>
+                <h3>Server List</h3>
+                <p class="text-subtitle text-muted">View all your server</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form Layout</li>
+                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
-
-    <!-- Basic Horizontal form layout section start -->
-    <section id="basic-horizontal-layouts">
-        <div class="row match-height">
-            <div class="col-md-6 col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Add Server</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-horizontal" method="post">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>IP Address</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" id="IP Address" class="form-control" name="ipaddress"
-                                                placeholder="IP Address">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Server Name</label>
-                                        </div>
-                                        <div class="col-md-8 form-group">
-                                            <input type="text" id="email-id" class="form-control" name="sname"
-                                                placeholder="Server Name">
-                                        </div>
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1" name="submit">Add Server</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                Simple Datatable
             </div>
-    <!-- // Basic multiple Column Form section end -->
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>CPU</th>
+                            <th>Ram used</th>
+                            <th>Ram free</th>
+                            <th>Ram total</th>
+                            <th>VRam used</th>
+                            <th>VRam free</th>
+                            <th>VRam total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        //Print all line in database mysql pdo
+                        $sql = "SELECT * FROM logs";
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetchAll();
+
+                        foreach($result as $row)
+                        {
+                            if($duser['authkey'] == $row['authkey'])
+                            {
+                            echo '<tr>';
+                            echo '<td>' . $row['datetime'] . '</td>';
+                            echo '<td>' . $row['cpu'] . '</td>';
+                            echo '<td>' . $row['ram_used'] . '</td>';
+                            echo '<td>' . $row['ram_free'] . '</td>';
+                            echo '<td>' . $row['ram_total'] . '</td>';
+                            echo '<td>' . $row['vram_used'] . '</td>';
+                            echo '<td>' . $row['vram_free'] . '</td>';
+                            echo '<td>' . $row['vram_total'] . '</td>';
+                            echo '</tr>';
+                            }
+                        }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
 </div>
 
             <footer>
@@ -195,6 +172,9 @@ if (isset($_POST['submit'])) {
     <script src="../../../assets/js/bootstrap.js"></script>
     <script src="../../../assets/js/app.js"></script>
     
+<script src="../../../assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="../../../assets/js/pages/simple-datatables.js"></script>
+
 </body>
 
 </html>

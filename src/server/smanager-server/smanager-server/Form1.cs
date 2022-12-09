@@ -58,7 +58,8 @@ namespace smanager_server
         public void start()
         {
             socket_server_smanager listener = new socket_server_smanager(comboip.Text, "5842");
-            listener.startServer();
+            Thread thread = new Thread(new ThreadStart(listener.startServer));
+            thread.Start();
         }
 
         private void btn_start_Click(object sender, EventArgs e)

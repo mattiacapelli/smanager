@@ -138,13 +138,13 @@ $duser=$select_stmt->fetch(PDO::FETCH_ASSOC);
                         $result = $stmt->fetchAll();
                         foreach($result as $row)
                         {
-                            if($row['user_key'] = $duser['ukey'])
+                            if($row['user_key'] == $duser['ukey'])
                             echo '<tr>';
                             echo '<td>' . $row['server_name'] . '</td>';
                             echo '<td>' . $row['ip_address'] . '</td>';
                             echo '<td>' . $row['authkey'] . '</td>';
                             echo '<td>' . $row['user_key'] . '</td>';
-                            echo '<td><a href="./server-home.php?id=' . $row['id'] . '" class="btn btn-primary">View</a></td>';
+                            echo '<td><a href="./log-list.php?id=' . $row['id'] . '" class="btn btn-primary">View</a></td>';
                             echo '</tr>';
                         }
                     ?>
